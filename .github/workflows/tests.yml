@@ -11,18 +11,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install numpy
-      - name: "Debug: environment and files"
-        run: |
-          echo "PWD: $(pwd)"
-          echo "----- ls -la -----"
-          ls -la
-          echo "----- python -V -----"
-          python -V
-          echo "----- pip list -----"
-          python -m pip list
-          echo "----- find test files -----"
-          find . -maxdepth 4 -type f -name 'test_*.py' -print || true
-          echo "----- tests dir listing -----"
-          ls -la tests || true
-      - name: "Run unittest (explicit discover)"
-        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - run: python -m unittest discover -v

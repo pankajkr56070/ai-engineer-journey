@@ -25,6 +25,40 @@ pip3 install numpy
 python3 week1/main.py
 ```
 
+Run tests
+---------
+
+Run the unit test suite locally with:
+
+```bash
+python -m unittest discover -s tests -p 'test_*.py' -v
+```
+
+Benchmark
+---------
+
+Compare the pure-Python and NumPy implementations with the included benchmark:
+
+```bash
+python3 week1/benchmark_cosine.py
+```
+
+Environment / Requirements
+--------------------------
+
+- Python 3.12 is recommended (matches CI).
+- Install NumPy:
+
+```bash
+pip3 install numpy
+```
+
+Notes
+-----
+
+- Tests are run in CI via `python -m unittest discover -s tests -p 'test_*.py' -v`.
+- Replace the fake embeddings in `week1/embeddings.py` with real model outputs for production use.
+
 Notes:
 
 - The project uses `np.random.rand(384)` to generate fake embeddings — replace this with

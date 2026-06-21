@@ -1,3 +1,5 @@
+# Tests: ![Tests](https://github.com/pankajkr56070/ai-engineer-journey/actions/workflows/tests.yml/badge.svg)
+
 # Week 1 — Embeddings & Simple Search
 
 This small project demonstrates creating fake 384-dimensional embeddings for text

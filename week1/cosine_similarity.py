@@ -5,21 +5,23 @@ This module provides a lightweight, dependency-free implementation of
 """
 from typing import Iterable
 from collections.abc import Iterable as _Iterable
+import numpy as np
 import math
 
 
 
-def dot_product(a: list[float], b: list[float]) -> float:
+def dot_product( a: Iterable[float], b: Iterable[float]) -> float:
     """Compute dot product between two numbers or two equal-length iterables.
 
     Examples:
         dot_product([1,2,3], [4,5,6]) -> 32.0
         dot_product(2, 3) -> 6.0
     """
-    def _is_iter(x):
+
+    def _is_iterable(x):
         return isinstance(x, _Iterable) and not isinstance(x, (str, bytes))
 
-    if _is_iter(a) and _is_iter(b):
+    if _is_iterable(a) and _is_iterable(b):
         a_list = list(a)
         b_list = list(b)
         if len(a_list) != len(b_list):
@@ -33,13 +35,9 @@ def magnitude(a):
 
     If `a` is an iterable, returns sqrt(sum(x*x)). If `a` is a scalar, returns abs(a).
     """
-    if isinstance(a, _Iterable) and not isinstance(a, (str, bytes)):
-        s = 0.0
-        for x in a:
-            s += float(x) * float(x)
-        return math.sqrt(s)
-    return math.sqrt(float(a) * float(a))
-
+    return math.sqrt(
+        sum(float(x) * float(x) for x in a)
+    )
 
 def cosine_similarity(a: Iterable[float], b: Iterable[float]) -> float:
     """Compute the cosine similarity between two vectors.
@@ -111,6 +109,27 @@ def top_k_similar_vectors(query: Iterable[float], vectors: Iterable[Iterable[flo
     # Partial sort would be more efficient for large lists; keep simple and clear.
     sims.sort(key=lambda t: t[1], reverse=True)
     return sims[:min(k, len(sims))]
+
+
+def cosine_similarity_numpy(a, b) -> float:
+    """Compute cosine similarity using NumPy (`np.dot` and `np.linalg.norm`).
+
+    Accepts array-like inputs. Returns a float in [-1.0, 1.0]. Raises ValueError
+    when either vector has zero norm or lengths mismatch.
+    """
+    xa = np.asarray(a, dtype=float)
+    xb = np.asarray(b, dtype=float)
+    if xa.ndim != 1 or xb.ndim != 1:
+        raise ValueError("Inputs must be 1-D array-like vectors")
+    if xa.shape[0] != xb.shape[0]:
+        raise ValueError("Vectors must be the same length")
+
+    na = np.linalg.norm(xa)
+    nb = np.linalg.norm(xb)
+    if na == 0.0 or nb == 0.0:
+        raise ValueError("Cosine similarity is undefined for zero vector")
+
+    return float(np.dot(xa, xb) / (na * nb))
 
 
 if __name__ == "__main__":

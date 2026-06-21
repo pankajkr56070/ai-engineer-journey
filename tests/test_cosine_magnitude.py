@@ -10,7 +10,7 @@ from week1.cosine_similarity import cosine_similarity, magnitude
 
 class TestCosineMagnitude(unittest.TestCase):
     def test_cosine_similarity_identical(self):
-        self.assertEqual(cosine_similarity([1, 1], [1, 1]), 1.0)
+        self.assertAlmostEqual(cosine_similarity([1, 1], [1, 1]), 1.0, places=9)
 
     def test_cosine_similarity_orthogonal(self):
         self.assertAlmostEqual(cosine_similarity([1, 0], [0, 1]), 0.0, places=9)

@@ -35,9 +35,12 @@ def magnitude(a):
 
     If `a` is an iterable, returns sqrt(sum(x*x)). If `a` is a scalar, returns abs(a).
     """
-    return math.sqrt(
-        sum(float(x) * float(x) for x in a)
-    )
+    if isinstance(a, _Iterable) and not isinstance(a, (str, bytes)):
+        s = 0.0
+        for x in a:
+            s += float(x) * float(x)
+        return math.sqrt(s)
+    return math.sqrt(float(a) * float(a))
 
 def cosine_similarity(a: Iterable[float], b: Iterable[float]) -> float:
     """Compute the cosine similarity between two vectors.

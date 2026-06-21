@@ -11,4 +11,5 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install numpy
-      - run: python -m unittest discover -v
+      - name: Run unittest (explicit discover)
+        run: python -m unittest discover -s tests -p 'test_*.py' -v

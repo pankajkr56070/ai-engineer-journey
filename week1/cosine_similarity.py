@@ -4,19 +4,41 @@ This module provides a lightweight, dependency-free implementation of
 `cosine_similarity` that accepts sequences or numpy arrays.
 """
 from typing import Iterable
+from collections.abc import Iterable as _Iterable
 import math
 
 
 
-def dot_product(a, b):
-    a = float(a)
-    b = float(b)
-    dot = 0.0
-    dot+=(a * b)
-    return dot
+def dot_product(a: list[float], b: list[float]) -> float:
+    """Compute dot product between two numbers or two equal-length iterables.
+
+    Examples:
+        dot_product([1,2,3], [4,5,6]) -> 32.0
+        dot_product(2, 3) -> 6.0
+    """
+    def _is_iter(x):
+        return isinstance(x, _Iterable) and not isinstance(x, (str, bytes))
+
+    if _is_iter(a) and _is_iter(b):
+        a_list = list(a)
+        b_list = list(b)
+        if len(a_list) != len(b_list):
+            raise ValueError("Vectors must be the same length")
+        return sum(float(x) * float(y) for x, y in zip(a_list, b_list))
+    # fallback to scalar multiplication
+    return float(a) * float(b)
 
 def magnitude(a):
-    return math.sqrt(a*a)
+    """Return magnitude of a number or iterable.
+
+    If `a` is an iterable, returns sqrt(sum(x*x)). If `a` is a scalar, returns abs(a).
+    """
+    if isinstance(a, _Iterable) and not isinstance(a, (str, bytes)):
+        s = 0.0
+        for x in a:
+            s += float(x) * float(x)
+        return math.sqrt(s)
+    return math.sqrt(float(a) * float(a))
 
 
 def cosine_similarity(a: Iterable[float], b: Iterable[float]) -> float:

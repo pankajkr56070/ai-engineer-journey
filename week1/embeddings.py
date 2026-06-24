@@ -14,7 +14,8 @@ def random_embeddings(num_embeddings: int, dim: int) -> np.ndarray:
     return np.random.rand(num_embeddings, dim)
 
 
-def normalize(vector):
+def normalize(vector: np.ndarray) -> np.ndarray:
+    """Normalize a vector to unit length when possible."""
     norm = np.linalg.norm(vector)
     if norm == 0:
         return vector
@@ -26,7 +27,7 @@ def embed_text(text: str) -> np.ndarray:
     return random_embedding(EMBEDDING_DIM)
 
 
-def embed_texts(texts) -> np.ndarray:
+def embed_texts(texts: list[str]) -> np.ndarray:
     """Create fake embeddings for multiple texts."""
     return random_embeddings(len(texts), EMBEDDING_DIM)
 

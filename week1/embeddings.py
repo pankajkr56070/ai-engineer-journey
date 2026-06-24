@@ -1,26 +1,46 @@
-"""Embeddings helpers for week1.
-
-This module provides simple fake 384-d embeddings for demonstration.
-Replace the fake generator with a real embedding model in production.
-"""
-from typing import List
 import numpy as np
 
-# embedding dimension used in examples
-DIM = 384
+
+EMBEDDING_DIM = 384
+
+
+def random_embedding(dim: int) -> np.ndarray:
+    """Generate a random embedding vector of given dimension."""
+    return np.random.rand(dim)
+
+
+def random_embeddings(num_embeddings: int, dim: int) -> np.ndarray:
+    """Generate a matrix of random embedding vectors."""
+    return np.random.rand(num_embeddings, dim)
+
+
+def normalize(vector):
+    norm = np.linalg.norm(vector)
+    if norm == 0:
+        return vector
+    return vector / norm
 
 
 def embed_text(text: str) -> np.ndarray:
-    """Return a fake embedding for a single text (1-D array of length DIM)."""
-    return np.random.rand(DIM)
+    """Create a fake embedding for a single text."""
+    return random_embedding(EMBEDDING_DIM)
 
 
-def embed_texts(texts: List[str]) -> np.ndarray:
-    """Return embeddings for a list of texts as an array of shape (N, DIM)."""
-    return np.stack([embed_text(t) for t in texts], axis=0)
+def embed_texts(texts) -> np.ndarray:
+    """Create fake embeddings for multiple texts."""
+    return random_embeddings(len(texts), EMBEDDING_DIM)
 
 
 if __name__ == "__main__":
-    docs = ["hello world", "I love machine learning"]
-    embs = embed_texts(docs)
-    print("embeddings shape:", embs.shape)
+    # Example usage
+    dim = 5
+    num_embeddings = 10
+
+    embedding = random_embedding(dim)
+    print("Random Embedding:", embedding)
+
+    embeddings_matrix = random_embeddings(num_embeddings, dim)
+    print("Random Embeddings Matrix:\n", embeddings_matrix)
+
+    normalized_vector = normalize(embedding)
+    print("Normalized Embedding:", normalized_vector)

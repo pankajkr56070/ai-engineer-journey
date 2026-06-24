@@ -1,5 +1,6 @@
 
 import time
+
 import numpy as np
 
 from similarity import batch_cosine_similarity_numpy, cosine_similarity

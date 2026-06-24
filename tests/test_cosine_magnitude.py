@@ -5,7 +5,7 @@ import unittest
 # ensure project root is importable
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from week1.cosine_similarity import cosine_similarity, magnitude
+from week1.similarity import cosine_similarity, magnitude
 
 
 class TestCosineMagnitude(unittest.TestCase):

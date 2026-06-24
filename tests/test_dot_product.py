@@ -1,6 +1,6 @@
 import unittest
 
-from week1.cosine_similarity import dot_product
+from week1.similarity import dot_product
 
 
 class TestDotProduct(unittest.TestCase):

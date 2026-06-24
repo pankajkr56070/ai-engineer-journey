@@ -7,7 +7,7 @@ It will print timing results using `timeit`.
 """
 import timeit
 import numpy as np
-from week1.cosine_similarity import cosine_similarity, cosine_similarity_numpy
+from week1.similarity import cosine_similarity, cosine_similarity_numpy
 
 
 def make_vectors(n=1000, dim=384):

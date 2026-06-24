@@ -5,7 +5,7 @@ import unittest
 # Ensure project root is on sys.path so tests can import the module
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from week1.cosine_similarity import cosine_similarity, top_k_similar_vectors
+from week1.similarity import cosine_similarity, top_k_similar_vectors
 
 
 class TestCosineSimilarity(unittest.TestCase):

@@ -5,7 +5,7 @@ import unittest
 # Ensure project root is on sys.path so tests can import the package
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from week1.cosine_similarity import dot_product, cosine_similarity
+from week1.similarity import dot_product, cosine_similarity
 
 
 class TestInvalidInputs(unittest.TestCase):
